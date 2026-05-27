@@ -21,7 +21,6 @@
 \usepackage{amsmath}
 \usepackage{enumitem}
 \usepackage{parskip}
-\usepackage{fancyhdr}
 \usepackage[numbers,square,sort&compress]{natbib}
 \usepackage{upquote}
 \usepackage{float}
@@ -80,11 +79,7 @@
 }
 
 % ── Header / footer ───────────────────────────────────────────────────────────
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small\textit{LLM-Based Antipattern Detection in UML Use Case Models}}
-\fancyhead[R]{\small\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
+\pagestyle{plain}
 
 % ── Metadata ──────────────────────────────────────────────────────────────────
 \hypersetup{
@@ -117,7 +112,7 @@
 }
 \date{}
 \maketitle
-\thispagestyle{fancy}
+\thispagestyle{plain}
 
 % ── Abstract ──────────────────────────────────────────────────────────────────
 \begin{abstract}
@@ -131,7 +126,7 @@ to synthesize 194 labeled diagram pairs (each consisting of an antipattern
 version and its correctly refactored counterpart) across a diverse set of
 application domains.  Qwen2.5-Coder-3B-Instruct, a compact LLM, is then
 fine-tuned on this dataset using Low-Rank Adaptation (LoRA), achieving
-91.0\% detection accuracy and an instance-level recall of 0.85 on a held-out, domain-stratified test set.  The paper details the full pipeline from synthetic data generation to fine-tuning and evaluation.
+91.0\% detection accuracy and an instance-level recall of 0.87 on a held-out, domain-stratified test set.  The paper details the full pipeline from synthetic data generation to fine-tuning and evaluation.
 \end{abstract}
 
 \noindent\textbf{Keywords:} UML, use case diagrams, antipattern detection,
@@ -377,7 +372,7 @@ is illustrated in Listing~1; refactored versions carry a fixed negative label
 
 \begin{figure}[h]
 \begin{lstlisting}[language=json,
-  caption={Example antipattern detection label.},
+  caption={Example antipattern detection label for a Banking System.},
   label={lst:json}]
 {
   "detected": true,
@@ -387,11 +382,11 @@ is illustrated in Listing~1; refactored versions carry a fixed negative label
     "instance_count": 1,
     "instances": [{
       "elements": [
-        "Withdraw Cash (UC3)",
-        "Validate Account (UC4)"
+        "Withdraw Cash (UC1)",
+        "Validate Account (UC2)"
       ],
-      "explanation": "'Validate Account' (UC4) is included by
-        'Withdraw Cash' (UC3), has no direct actor association
+      "explanation": "'Validate Account' (UC2) is included by
+        'Withdraw Cash' (UC1), has no direct actor association
         ... making it a functional decomposition."
     }]
   }]
@@ -509,7 +504,7 @@ We apply parameter-efficient fine-tuning (PEFT) to Qwen2.5-Coder-3B-Instruct~\ci
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.85\linewidth]{figures/finetune_loss_curve}
+  \includegraphics[width=0.85\linewidth]{figures/finetune_loss_curve_cropped}
   \caption{Training loss over 6 epochs.}
   \label{fig:loss}
 \end{figure}
@@ -540,45 +535,74 @@ Matching checks that \texttt{elements} exactly matches the expected list and
 that the \texttt{explanation} is semantically correct; all results were manually verified to resolve ambiguous cases.  Precision, recall, F$_1$,
 instance classification accuracy, and Matthews Correlation Coefficient (MCC)
 are derived from these counts.  Table~\ref{tab:metrics} reports the results
-over 128 verified classification outcomes.
+over 126 verified classification outcomes.
 
 \begin{table}[h]
 \centering
-\caption{Instance classification results over 128 classification outcomes across 78 test samples.}
+\caption{Instance-level classification results over 126 outcomes across 78 test samples.}
 \label{tab:metrics}
+\begin{minipage}[t]{0.46\linewidth}
+\centering
+\vspace{0pt}
+\begin{tabular}{lcc}
+\toprule
+& \textbf{Pred.\ +} & \textbf{Pred.\ $-$} \\
+\midrule
+\textbf{Actual\ +} & 68\,(TP) & 10\,(FN) \\
+\textbf{Actual\ $-$} & 16\,(FP) & 32\,(TN) \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.46\linewidth}
+\centering
+\vspace{0pt}
 \begin{tabular}{lc}
 \toprule
 \textbf{Metric} & \textbf{Value} \\
 \midrule
-True positives  (TP)   & 66    \\
-True negatives  (TN)   & 32    \\
-False positives (FP)   & 18    \\
-False negatives (FN)   & 12    \\
-\midrule
-Precision               & 0.79 \\
-Recall                  & 0.85 \\
-F$_1$                   & 0.82 \\
-Instance classification accuracy  & 0.77 \\
-MCC                     & 0.50 \\
+Precision  & 0.81 \\
+Recall     & 0.87 \\
+F$_1$      & 0.84 \\
+Accuracy   & 0.79 \\
+MCC        & 0.55 \\
 \bottomrule
 \end{tabular}
+\end{minipage}
 \end{table}
 
 In antipattern detection, recall is the more critical metric, since a missed
 antipattern remains silently in the model whereas a false positive can be
-dismissed by the modeller on inspection.  The model achieves a recall of 0.85, recovering the majority of expected
+dismissed by the modeller on inspection.  The model achieves a recall of 0.87, recovering the majority of expected
 FD-include instances, which is the desirable outcome in this context.
-Precision at 0.79 reflects some false-positive tendency, as the model
+Precision at 0.81 reflects some false-positive tendency, as the model
 occasionally flags an FD-include instance where none was intended, but this
-is an acceptable trade-off.  The MCC of 0.50 confirms a moderate-to-strong
+is an acceptable trade-off.  The MCC of 0.55 confirms a moderate-to-strong
 positive correlation between predictions and ground truth, despite the modest
 dataset size.
 
-The 12 FNs cluster in medium-size diagrams with 4--5 antipattern instances,
-which suggests the model struggles to identify all instances when multiple
-base use cases each carry FD-include instances.  The 18 FPs primarily involve
-inclusion use cases that are associated with an actor in the diagram.  Both error classes point to the same underlying challenge of comprehensive
-structural scanning when instance count is high.
+Manual inspection of the 16 FP and 10 FN instances reveals three recurring FP
+patterns and two FN patterns.  Roughly half of all FPs involve prediction of an FD-include instance whose
+inclusion-side use case is directly associated with an actor in the diagram,
+violating the criterion that disqualifies it from FD-include membership.  This error is especially consistent when the overlooked actor is a system
+entity rather than a human role.  In two unrelated booking domains a payment
+use case is simultaneously included by a base use case and directly associated
+with a Payment Gateway actor, yet the model flags the relationship as
+FD-include in both cases.  This actor-association error persists across both
+the antipattern and refactored versions of the same domain in three cases,
+confirming a systematic gap in the model's
+actor-association check rather than a stochastic failure.  A second FP pattern
+is extend-for-include confusion, where an \texttt{<<extend>>} relationship is
+misread as an FD-include instance.  A third, less frequent pattern involves
+structurally unrelated use case pairs: the model asserts an include link
+between two use cases that share no relationship in the diagram, suggesting
+occasional hallucination of structural connections.  Among FNs, the majority
+are straightforward omissions in diagrams where other instances in the same
+diagram were correctly identified, pointing to incomplete structural scanning
+rather than misclassification of relationship type.  One FN involves a chain FD-include where A includes B and B includes C;
+the second link (B,\,C) is missed even though the first (A,\,B) is detected,
+likely because the intermediate node B plays a dual role as both an inclusion
+use case and a base use case.
 
 % ==============================================================================
 \section{Discussion}
@@ -605,15 +629,15 @@ fine-tuning process, or jointly training on multiple antipatterns
 simultaneously.  A second concern is synthetic distribution shift, as Claude Opus exhibits
 systematic stylistic preferences that may differ from practitioner-authored
 diagrams, so performance on real-world inputs remains to be evaluated.  Generation is also capped at 5 antipattern instance
-groups per diagram, whereas real-world diagrams may contain more; the error
-analysis already suggests degradation at 4--5 instances.  The model was trained and evaluated exclusively on PlantUML-formatted
+groups per diagram, whereas real-world diagrams may contain more.  The FN pattern of incomplete scanning identified in the error analysis suggests
+performance may degrade further as instance count grows.  The model was trained and evaluated exclusively on PlantUML-formatted
 diagrams, so its applicability to other use case diagram notations or
 modeling tools remains untested.  Finally, 78 test samples across 39 domains
 yield somewhat unstable metric estimates, and a larger held-out set would
 provide more reliable performance bounds.
 
 
-Several extensions present themselves naturally. The most immediate is broadening the dataset to cover multiple antipattern types simultaneously, working towards a unified model capable of detecting a full antipattern catalogue. Expanding the diagram size range to include large diagrams (31--54 elements) would stress-test the model on more complex inputs. Evaluating on a hand-crafted benchmark of real practitioner diagrams would measure how well the model generalizes beyond synthetically generated examples. A natural progression of the task is to move from detection to refactoring, where the model not only identifies antipattern instances but also outputs the corrected diagram.
+The most immediate extension is broadening the dataset to cover multiple antipattern types simultaneously, working towards a unified model capable of detecting a full antipattern catalogue. Expanding the diagram size range to include larger diagrams would stress-test the model on more complex inputs. Evaluating on a hand-crafted benchmark of real practitioner diagrams would measure how well the model generalizes beyond synthetically generated examples. A natural progression of the task is to move from detection to refactoring, where the model not only identifies antipattern instances but also outputs the corrected diagram.
 
 % ==============================================================================
 \section{Related Work}

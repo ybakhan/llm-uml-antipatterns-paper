@@ -1,17 +1,33 @@
-MAIN     = paper
+MAIN     = llm-uml-antipatterns
 PDFLATEX = pdflatex
 BIBTEX   = bibtex
 FLAGS    = -interaction=nonstopmode -halt-on-error
+PYTHON   = python3
+CROP     = scripts/crop_title.py
 
-.PHONY: all clean cleanall
+# Matplotlib plots whose embedded titles should be stripped before inclusion.
+# Add new plot filenames here as the paper grows.
+PLOT_FIGS    = figures/finetune_loss_curve.png
+CROPPED_FIGS = $(PLOT_FIGS:figures/%.png=figures/%_cropped.png)
 
-all: $(MAIN).pdf
+figures/%_cropped.png: figures/%.png $(CROP)
+	$(PYTHON) $(CROP) $< $@
 
-$(MAIN).pdf: $(MAIN).tex references.bib
+.PHONY: all md docx clean cleanall
+
+all: $(CROPPED_FIGS) $(MAIN).pdf
+
+$(MAIN).pdf: $(MAIN).tex references.bib $(CROPPED_FIGS)
 	$(PDFLATEX) $(FLAGS) $(MAIN)
 	$(BIBTEX)   $(MAIN)
 	$(PDFLATEX) $(FLAGS) $(MAIN)
 	$(PDFLATEX) $(FLAGS) $(MAIN)
+
+md: $(MAIN).tex references.bib
+	pandoc $(MAIN).tex --bibliography=references.bib --citeproc -o $(MAIN).md
+
+docx: $(MAIN).tex references.bib
+	pandoc $(MAIN).tex --bibliography=references.bib --citeproc -o $(MAIN).docx
 
 clean:
 	rm -f $(MAIN).aux $(MAIN).bbl $(MAIN).blg \
