@@ -13,9 +13,9 @@ CROPPED_FIGS = $(PLOT_FIGS:figures/%.png=figures/%_cropped.png)
 figures/%_cropped.png: figures/%.png $(CROP)
 	$(PYTHON) $(CROP) $< $@
 
-.PHONY: all md docx clean cleanall
+.PHONY: all clean cleanall
 
-all: $(CROPPED_FIGS) $(MAIN).pdf
+all: $(CROPPED_FIGS) $(MAIN).pdf $(MAIN).md $(MAIN).docx
 
 $(MAIN).pdf: $(MAIN).tex references.bib $(CROPPED_FIGS)
 	$(PDFLATEX) $(FLAGS) $(MAIN)
@@ -23,10 +23,10 @@ $(MAIN).pdf: $(MAIN).tex references.bib $(CROPPED_FIGS)
 	$(PDFLATEX) $(FLAGS) $(MAIN)
 	$(PDFLATEX) $(FLAGS) $(MAIN)
 
-md: $(MAIN).tex references.bib
+$(MAIN).md: $(MAIN).tex references.bib
 	pandoc $(MAIN).tex --bibliography=references.bib --citeproc -o $(MAIN).md
 
-docx: $(MAIN).tex references.bib
+$(MAIN).docx: $(MAIN).tex references.bib
 	pandoc $(MAIN).tex --bibliography=references.bib --citeproc -o $(MAIN).docx
 
 clean:

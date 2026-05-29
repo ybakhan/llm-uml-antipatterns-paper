@@ -47,7 +47,7 @@ labeled antipattern/refactored PlantUML diagram pairs, together with a
 structured dataset of 388 annotated training samples spanning 194
 distinct application domains with 1--5 antipattern instances per
 diagram. Building on this data, we fine-tune a 3B-parameter LLM that
-achieves 91.0% detection accuracy on domain-held-out test samples.
+achieves 91.0% detection accuracy on held-out test samples.
 
 The remainder of this paper is structured as follows.
 Section [2](#sec:background){reference-type="ref"
@@ -60,10 +60,12 @@ Section [5](#sec:finetuning){reference-type="ref"
 reference="sec:finetuning"} details the fine-tuning configuration.
 Section [6](#sec:evaluation){reference-type="ref"
 reference="sec:evaluation"} presents evaluation results.
-Section [7](#sec:discussion){reference-type="ref"
+Section [7](#sec:mapstedi){reference-type="ref"
+reference="sec:mapstedi"} applies the model to a real-world case study.
+Section [8](#sec:discussion){reference-type="ref"
 reference="sec:discussion"} discusses findings and limitations.
-Section [8](#sec:related){reference-type="ref" reference="sec:related"}
-surveys related work. Section [9](#sec:conclusion){reference-type="ref"
+Section [9](#sec:related){reference-type="ref" reference="sec:related"}
+surveys related work. Section [10](#sec:conclusion){reference-type="ref"
 reference="sec:conclusion"} concludes.
 
 # Background {#sec:background}
@@ -92,7 +94,7 @@ direct actor association; (iii) it neither includes nor extends any
 other use case; (iv) it is not extended by any other use case; and (v)
 it is not involved in any generalisation.
 
-## LLMs for Code and Diagram Generation
+## LLMs for Diagram Generation and Fine-Tuning
 
 LLMs have demonstrated strong capabilities in generating structured text
 conforming to domain-specific syntaxes, including source code,
@@ -106,12 +108,14 @@ al. 2026), and ChatGPT has been evaluated for generating STRIDE data
 flow diagrams, with findings covering syntactic correctness, semantic
 accuracy, and trust-boundary placement (Alsayegh and El-Attar 2026).
 
-Low-Rank Adaptation (LoRA) (Hu et al. 2022) is a parameter-efficient
-fine-tuning technique that injects trainable low-rank matrices into each
-weight matrix of a frozen pre-trained model. With rank $r \ll d$, where
-$d$ is the dimension of the weight matrix, LoRA reduces the number of
-trainable parameters by orders of magnitude while preserving performance
-comparable to full fine-tuning.
+Adapting a pre-trained LLM to a specialised task such as antipattern
+detection, without retraining all weights, is achieved through
+parameter-efficient fine-tuning (PEFT). Low-Rank Adaptation (LoRA) (Hu
+et al. 2022) is a PEFT technique that injects trainable low-rank
+matrices into each weight matrix of a frozen pre-trained model. With
+rank $r \ll d$, where $d$ is the dimension of the weight matrix, LoRA
+reduces the number of trainable parameters by orders of magnitude while
+preserving performance comparable to full fine-tuning.
 
 # Data Generation Pipeline {#sec:pipeline}
 
@@ -206,11 +210,11 @@ as target guidelines rather than strict constraints.
 
 #### Structural validity rules.
 
-Several rules enforce UML correctness. Every model must include a system
-boundary rectangle enclosing all use cases, with all actors placed
-outside it. Every use case in both versions must be associated with at
-least one actor; a use case with no actor association is invalid.
-Actor-to-use-case associations must be undirected lines, and
+Several rules enforce UML correctness. Every diagram must include a
+system boundary rectangle enclosing all use cases, with all actors
+placed outside it. Every use case in both versions must be associated
+with at least one actor; a use case with no actor association is
+invalid. Actor-to-use-case associations must be undirected lines, and
 `<<extend>>` arrows must point from the extension use case to the base
 use case.
 
@@ -354,22 +358,21 @@ sub-steps.
 
 # Fine-Tuning {#sec:finetuning}
 
-We apply parameter-efficient fine-tuning (PEFT) to
-Qwen2.5-Coder-3B-Instruct ([Hui et al.]{.nocase} 2024), a 3B-parameter
-LLM from the Qwen2.5-Coder series. Its pretraining corpus includes large
-quantities of code and structured text, making it well-suited to
-PlantUML syntax and structured output formatting. Low-Rank Adaptation
-(LoRA) (Hu et al. 2022) adapters are applied to all attention and
-feed-forward projection matrices with rank $r = 8$ and scaling factor
-$\alpha = 16$, training 0.48% of total parameters. Samples are formatted
-using the Qwen2.5 chat template with system, user, and assistant turns,
-with a maximum sequence length of 2048 tokens. The dataset is split into
-training and test sets using a domain-stratified 80/20 partition, where
-entire domains (both antipattern and refactored samples) are assigned to
-either split, ensuring no domain appears in both. This yields 155
-training domains (310 samples) and 39 test domains (78 samples). The
-model is trained for 6 epochs; training loss converged smoothly from
-above 1.0 to a final value of 0.18, as shown in
+We apply PEFT to Qwen2.5-Coder-3B-Instruct ([Hui et al.]{.nocase} 2024),
+a 3B-parameter LLM from the Qwen2.5-Coder series. Its pretraining corpus
+includes large quantities of code and structured text, making it
+well-suited to PlantUML syntax and structured output formatting.
+Low-Rank Adaptation (LoRA) (Hu et al. 2022) adapters are applied to all
+attention and feed-forward projection matrices with rank $r = 8$ and
+scaling factor $\alpha = 16$, training 0.48% of total parameters.
+Samples are formatted using the Qwen2.5 chat template with system, user,
+and assistant turns, with a maximum sequence length of 2048 tokens. The
+dataset is split into training and test sets using a domain-stratified
+80/20 partition, where entire domains (both antipattern and refactored
+samples) are assigned to either split, ensuring no domain appears in
+both. This yields 155 training domains (310 samples) and 39 test domains
+(78 samples). The model is trained for 6 epochs; training loss converged
+smoothly from above 1.0 to a final value of 0.18, as shown in
 Figure [3](#fig:loss){reference-type="ref" reference="fig:loss"}.
 
 <figure id="fig:loss" data-latex-placement="h">
@@ -470,6 +473,69 @@ is missed even though the first (A, B) is detected, likely because the
 intermediate node B plays a dual role as both an inclusion use case and
 a base use case.
 
+# Real-World Case Study: MAPSTEDI {#sec:mapstedi}
+
+To assess the model's ability to generalise beyond synthetically
+generated diagrams, we apply it to a subsystem of MAPSTEDI, a
+distributed biodiversity database system used to merge specimen
+collections held by the University of Colorado, the Denver Museum of
+Nature and Science, and the Denver Botanic Gardens (MAPSTEDI Project
+2006). The UC model was originally prepared by graduate students in the
+Ecology and Evolutionary Biology Department at the University of
+Colorado and has been used as a benchmark in prior antipattern detection
+research (El-Attar and Miller 2006, 2010). The subsystem modelled here
+covers database access, database integration, database editing, and
+administrative processes, comprising 16 use cases and 7 actors.
+
+<figure id="fig:mapstedi" data-latex-placement="h">
+<img src="figures/mapstedi.png" />
+<figcaption>MAPSTEDI subsystem UC diagram used as the real-world
+evaluation input.</figcaption>
+</figure>
+
+Figure [4](#fig:mapstedi){reference-type="ref" reference="fig:mapstedi"}
+shows the UC diagram. The three ground-truth FD-include instances,
+established by manual inspection against the antipattern definition,
+are: (1) *Integrate Query Results* $\to$ *Query Local Database*, where
+*Query Local Database* has no direct actor association and represents an
+internal query sub-step; (2) *RunQC Tests* $\to$ *Upload DBG and UCOM
+Data*, where *Upload DBG and UCOM Data* has no actor association and is
+not reachable independently; and (3) *Geocode Specimen* $\to$ *Find
+Locality*, where *Find Locality* similarly has no actor association and
+is included by only one use case.
+
+The model produced 5 predicted instances, yielding 1 TP, 4 FP, and 2 FN
+(Precision = 0.20, Recall = 0.33). The single correct prediction was
+instance (1). The 4 FPs expose three failure modes already observed in
+the synthetic test set but compounded by the diagram's higher
+complexity: two FPs flag use cases that carry direct actor associations
+(*Search Collections Data* associated with Public and Research Users;
+*Edit Collections Data* associated with Database Integrator and Data
+Editor), repeating the actor-association check failure documented in
+Section [6](#sec:evaluation){reference-type="ref"
+reference="sec:evaluation"}; one FP flags *Query Remote Database*, which
+is included by *two* base use cases and therefore represents legitimate
+shared behaviour rather than functional decomposition; and one FP flags
+*RunQC Tests* despite it having an outgoing include to *Query Remote
+Database*, violating the criterion that a decomposed use case must not
+itself include other use cases. The 2 FNs, instances (2) and (3), are
+straightforward omissions of structurally unambiguous FD-include cases,
+consistent with the incomplete-scanning FN pattern in the synthetic
+results.
+
+The degraded performance on MAPSTEDI relative to the synthetic test set
+is consistent with the synthetic distribution shift discussed in
+Section [8](#sec:discussion){reference-type="ref"
+reference="sec:discussion"}: the training diagrams are smaller (median 8
+use cases), syntactically uniform, and contain at most one antipattern
+type per diagram, whereas MAPSTEDI is a practitioner-authored diagram
+with 16 use cases, shared-behaviour patterns, and multi-actor use cases
+not represented in the training distribution. The case study therefore
+confirms the need for real-world diagram examples in the training set
+and motivates the dataset extension directions outlined in
+Section [8](#sec:discussion){reference-type="ref"
+reference="sec:discussion"}.
+
 # Discussion {#sec:discussion}
 
 The results validate that a frontier LLM can serve as a reliable diagram
@@ -531,19 +597,19 @@ in ARBIUM is semi-automated via OCL-style queries; however, refactoring
 suggestions are made textually and applied by the developer manually.
 Our work draws on their antipattern taxonomy and takes the next step by
 replacing the rule-based detector with the model, removing the need for
-hand-crafted detection rules and enabling operation on plain-text
-PlantUML sources without a formal model repository.
+hand-crafted detection rules and enabling detection from plain-text
+PlantUML sources without requiring the diagram to be serialised in XMI.
 
 Subsequent work (Khan and El-Attar 2016) extends the ARBIUM line by
 automating the refactoring step through model transformations: OCL
 queries identify antipattern instances, and ATL transformations then
 apply the prescribed structural repairs. While this fully automates the
 detect-and-refactor loop for a subset of the catalogued antipatterns,
-the approach still relies on expert-authored formal rules and operates
-on structured model repositories rather than textual diagram sources.
-Our approach is complementary: by training an LLM on labeled diagram
-pairs, we show that the detection task can be learned from examples
-alone, without hand-crafted rules.
+the approach still relies on expert-authored formal rules and requires
+diagrams to be serialised in XMI rather than plain-text sources. Our
+approach is complementary: by training an LLM on labeled diagram pairs,
+we show that the detection task can be learned from examples alone,
+without hand-crafted rules.
 
 Early assessments of ChatGPT's ability to generate UML class diagrams
 found syntactic and semantic limitations in models of that era (Cámara
@@ -571,7 +637,7 @@ without any manual data collection. The dataset, generation scripts,
 fine-tuning notebook, and evaluation results are publicly
 available (Khan and El-Attar 2026).
 
-::::::::::::::::: {#refs .references .csl-bib-body .hanging-indent}
+:::::::::::::::::: {#refs .references .csl-bib-body .hanging-indent}
 ::: {#ref-alsayegh2026stride .csl-entry}
 Alsayegh, H., and M. El-Attar. 2026. *A Preliminary Exploratory
 Assessment of ChatGPT to Generating STRIDE Data Flow Diagrams*. INSTICC;
@@ -653,7 +719,6 @@ Frontiers* 18 (1): 171--204.
 Khan, Y., and M. El-Attar. 2026. *Fine-Tuning an LLM for UML Use Case
 Antipattern Detection \[Dataset, Supplementary Materials, and
 Results\]*. GitHub.
-<https://github.com/ybakhan/llm-finetuning-uml-antipatterns>.
 :::
 
 ::: {#ref-lilly1999pitfalls .csl-entry}
@@ -661,4 +726,10 @@ Lilly, S. 1999. "Use Case Pitfalls: Top 10 Problems from Real Projects
 Using Use Cases." *Proceedings of Technology of Object-Oriented
 Languages and Systems (TOOLS 30)*, 174--83.
 :::
-:::::::::::::::::
+
+::: {#ref-mapstedi .csl-entry}
+MAPSTEDI Project. 2006. *MAPSTEDI: Mapping Species and Taxa Efficiently
+with Distributed Information*.
+[Https://mapstedi.sourceforge.net/](https://mapstedi.sourceforge.net/){.uri}.
+:::
+::::::::::::::::::
