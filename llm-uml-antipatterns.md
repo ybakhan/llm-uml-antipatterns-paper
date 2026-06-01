@@ -461,8 +461,8 @@ domain in three cases, confirming a systematic gap in the model's
 actor-association check rather than a stochastic failure. A second FP
 pattern is extend-for-include confusion, where an `<<extend>>`
 relationship is misread as an FD-include instance. A third, less
-frequent pattern involves structurally unrelated use case pairs: the
-model asserts an include link between two use cases that share no
+frequent pattern involves structurally unrelated use case pairs. Here
+the model asserts an include link between two use cases that share no
 relationship in the diagram, suggesting occasional hallucination of
 structural connections. Among FNs, the majority are straightforward
 omissions in diagrams where other instances in the same diagram were
