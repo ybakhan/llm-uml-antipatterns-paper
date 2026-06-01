@@ -597,8 +597,8 @@ hand-crafted detection rules and enabling detection from plain-text
 PlantUML sources without requiring the diagram to be serialised in XMI.
 
 Subsequent work (Khan and El-Attar 2016) extends the ARBIUM line by
-automating the refactoring step through model transformations: OCL
-queries identify antipattern instances, and ATL transformations then
+automating the refactoring step through model transformations, where OCL
+queries identify antipattern instances and ATL transformations then
 apply the prescribed structural repairs. While this fully automates the
 detect-and-refactor loop for a subset of the catalogued antipatterns,
 the approach still relies on expert-authored formal rules and requires
