@@ -23,7 +23,7 @@ model-checking rules, OCL constraints, or pattern-matching heuristics
 methods are brittle when diagrams do not conform to an expected
 representation, and they cannot generalize to novel antipattern types
 without expert-authored rules. Recent advances in large language models
-(LLMs) offer an alternative: models trained on sufficiently
+(LLMs) offer a promising alternative. Models trained on sufficiently
 representative examples can generalize structural reasoning to unseen
 diagrams.
 
