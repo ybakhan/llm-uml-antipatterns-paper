@@ -532,11 +532,8 @@ MCC        & 0.55 \\
 
 In antipattern detection, recall is the more critical metric, since a missed
 antipattern remains silently in the model whereas a false positive can be
-dismissed by the modeler on inspection.  The model achieves a recall of 0.87, recovering the majority of expected
-FD-include instances, which is the desirable outcome in this context.
-Precision at 0.81 reflects some false-positive tendency, as the model
-occasionally flags an FD-include instance where none was intended, but this
-is an acceptable trade-off.  The MCC of 0.55 confirms a moderate-to-strong
+dismissed by the modeler on inspection.  The model achieves a recall of 0.87 and a precision of 0.81, recovering
+the majority of expected instances at the cost of some false positives.  The MCC of 0.55 confirms a moderate-to-strong
 positive correlation between predictions and ground truth, despite the modest
 dataset size.
 
