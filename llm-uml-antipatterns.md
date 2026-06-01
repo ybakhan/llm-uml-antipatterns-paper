@@ -437,7 +437,7 @@ reports the results over 126 verified classification outcomes.
 
 In antipattern detection, recall is the more critical metric, since a
 missed antipattern remains silently in the model whereas a false
-positive can be dismissed by the modeller on inspection. The model
+positive can be dismissed by the modeler on inspection. The model
 achieves a recall of 0.87, recovering the majority of expected
 FD-include instances, which is the desirable outcome in this context.
 Precision at 0.81 reflects some false-positive tendency, as the model
