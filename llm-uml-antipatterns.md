@@ -503,15 +503,15 @@ is included by only one use case.
 The model produced 5 predicted instances, yielding 1 TP, 4 FP, and 2 FN
 (Precision = 0.20, Recall = 0.33). The single correct prediction was
 instance (1). The 4 FPs expose three failure modes already observed in
-the synthetic test set but compounded by the diagram's higher
-complexity: two FPs flag use cases that carry direct actor associations
-(*Search Collections Data* associated with Public and Research Users;
-*Edit Collections Data* associated with Database Integrator and Data
-Editor), repeating the actor-association check failure documented in
+the synthetic test set, compounded by the diagram's higher complexity.
+Two FPs flag use cases that carry direct actor associations (*Search
+Collections Data* associated with Public and Research Users; *Edit
+Collections Data* associated with Database Integrator and Data Editor),
+repeating the actor-association check failure documented in
 Section [6](#sec:evaluation){reference-type="ref"
-reference="sec:evaluation"}; one FP flags *Query Remote Database*, which
+reference="sec:evaluation"}. One FP flags *Query Remote Database*, which
 is included by *two* base use cases and therefore represents legitimate
-shared behaviour rather than functional decomposition; and one FP flags
+shared behaviour rather than functional decomposition. One FP flags
 *RunQC Tests* despite it having an outgoing include to *Query Remote
 Database*, violating the criterion that a decomposed use case must not
 itself include other use cases. The 2 FNs, instances (2) and (3), are
