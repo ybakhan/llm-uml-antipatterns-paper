@@ -542,8 +542,8 @@ without introducing spurious additions (16 out of 194 retain legitimate
 includes, consistent with the prompt intent). The model achieves
 competitive detection performance with only 3 billion parameters and
 $<0.5\%$ of its weights updated, confirming that synthetic data
-generation combined with parameter-efficient fine-tuning enables
-effective specialisation of a compact LLM at modest computational cost.
+generation combined with PEFT enables effective specialisation of a
+compact LLM at modest computational cost.
 
 The current dataset targets only FD-include; the full antipattern
 catalogue (El-Attar and Miller 2006, 2010) covers many further types
