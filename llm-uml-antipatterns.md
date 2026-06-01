@@ -29,12 +29,13 @@ diagrams.
 
 However, assembling labeled training data for UML antipatterns is
 expensive and scarce in practice. Published datasets of annotated use
-case diagrams are small and domain-narrow. We address this bottleneck
-with a synthetic data generation approach: we use Claude Opus, a
-state-of-the-art LLM, as a controlled diagram author to produce a large,
-diverse, and precisely labeled set of diagram pairs. This data is then
-used to fine-tune Qwen2.5-Coder-3B-Instruct, a compact open-source LLM
-suitable for deployment in resource-constrained settings.
+case diagrams are small and cover few domains. We address this
+bottleneck with a synthetic data generation approach: we use Claude
+Opus, a state-of-the-art LLM, as a controlled diagram author to produce
+a large, diverse, and precisely labeled set of diagram pairs. This data
+is then used to fine-tune Qwen2.5-Coder-3B-Instruct, a compact
+open-source LLM suitable for deployment in resource-constrained
+settings.
 
 This paper presents a prompt-engineering framework that instructs an LLM
 to generate syntactically valid, structurally diverse, and correctly
