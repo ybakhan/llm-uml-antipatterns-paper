@@ -244,19 +244,21 @@ data-label="lst:json"><pre class="sourceCode json"><code class="sourceCode json"
 <span id="lst:json-2"><a href="#lst:json-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;detected&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
 <span id="lst:json-3"><a href="#lst:json-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;antipatterns&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
 <span id="lst:json-4"><a href="#lst:json-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;antipattern_name&quot;</span><span class="fu">:</span></span>
-<span id="lst:json-5"><a href="#lst:json-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Functional Decomposition: Using the include relationship&quot;</span><span class="fu">,</span></span>
-<span id="lst:json-6"><a href="#lst:json-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;instance_count&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
-<span id="lst:json-7"><a href="#lst:json-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;instances&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
-<span id="lst:json-8"><a href="#lst:json-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;elements&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="lst:json-9"><a href="#lst:json-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Withdraw Cash (UC1)&quot;</span><span class="ot">,</span></span>
-<span id="lst:json-10"><a href="#lst:json-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Validate Account (UC2)&quot;</span></span>
-<span id="lst:json-11"><a href="#lst:json-11" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
-<span id="lst:json-12"><a href="#lst:json-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;explanation&quot;</span><span class="fu">:</span> <span class="st">&quot;&#39;Validate Account&#39; (UC2) is included by</span></span>
-<span id="lst:json-13"><a href="#lst:json-13" aria-hidden="true" tabindex="-1"></a><span class="st">        &#39;Withdraw Cash&#39; (UC1), has no direct actor association</span></span>
-<span id="lst:json-14"><a href="#lst:json-14" aria-hidden="true" tabindex="-1"></a><span class="st">        ... making it a functional decomposition.&quot;</span></span>
-<span id="lst:json-15"><a href="#lst:json-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">]</span></span>
-<span id="lst:json-16"><a href="#lst:json-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="ot">]</span></span>
-<span id="lst:json-17"><a href="#lst:json-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="lst:json-5"><a href="#lst:json-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Functional Decomposition: Using the</span></span>
+<span id="lst:json-6"><a href="#lst:json-6" aria-hidden="true" tabindex="-1"></a><span class="st">      include relationship&quot;</span><span class="fu">,</span></span>
+<span id="lst:json-7"><a href="#lst:json-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;instance_count&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="lst:json-8"><a href="#lst:json-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;instances&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
+<span id="lst:json-9"><a href="#lst:json-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;elements&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="lst:json-10"><a href="#lst:json-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Withdraw Cash (UC1)&quot;</span><span class="ot">,</span></span>
+<span id="lst:json-11"><a href="#lst:json-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Validate Account (UC2)&quot;</span></span>
+<span id="lst:json-12"><a href="#lst:json-12" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="lst:json-13"><a href="#lst:json-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;explanation&quot;</span><span class="fu">:</span> <span class="st">&quot;&#39;Validate Account&#39; (UC2)</span></span>
+<span id="lst:json-14"><a href="#lst:json-14" aria-hidden="true" tabindex="-1"></a><span class="st">        is included by &#39;Withdraw Cash&#39; (UC1),</span></span>
+<span id="lst:json-15"><a href="#lst:json-15" aria-hidden="true" tabindex="-1"></a><span class="st">        has no direct actor association</span></span>
+<span id="lst:json-16"><a href="#lst:json-16" aria-hidden="true" tabindex="-1"></a><span class="st">        ... making it a functional decomposition.&quot;</span></span>
+<span id="lst:json-17"><a href="#lst:json-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">]</span></span>
+<span id="lst:json-18"><a href="#lst:json-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="ot">]</span></span>
+<span id="lst:json-19"><a href="#lst:json-19" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </figure>
 
 The user prompt is issued once per domain and specifies the target
@@ -280,22 +282,23 @@ data-label="lst:sample"><pre class="sourceCode json"><code class="sourceCode jso
 <span id="lst:sample-2"><a href="#lst:sample-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;messages&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="lst:sample-3"><a href="#lst:sample-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="lst:sample-4"><a href="#lst:sample-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;role&quot;</span><span class="fu">:</span> <span class="st">&quot;system&quot;</span><span class="fu">,</span></span>
-<span id="lst:sample-5"><a href="#lst:sample-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="st">&quot;You are an expert in UML use case diagram analysis...&quot;</span></span>
-<span id="lst:sample-6"><a href="#lst:sample-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="lst:sample-7"><a href="#lst:sample-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="lst:sample-8"><a href="#lst:sample-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;role&quot;</span><span class="fu">:</span> <span class="st">&quot;user&quot;</span><span class="fu">,</span></span>
-<span id="lst:sample-9"><a href="#lst:sample-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="st">&quot;Analyze the following PlantUML use case model and</span></span>
-<span id="lst:sample-10"><a href="#lst:sample-10" aria-hidden="true" tabindex="-1"></a><span class="st">                  detect if it contains any antipatterns. ......</span></span>
-<span id="lst:sample-11"><a href="#lst:sample-11" aria-hidden="true" tabindex="-1"></a><span class="st">                  @startuml</span></span>
-<span id="lst:sample-12"><a href="#lst:sample-12" aria-hidden="true" tabindex="-1"></a><span class="st">                  ......</span></span>
-<span id="lst:sample-13"><a href="#lst:sample-13" aria-hidden="true" tabindex="-1"></a><span class="st">                  @enduml&quot;</span></span>
-<span id="lst:sample-14"><a href="#lst:sample-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="lst:sample-15"><a href="#lst:sample-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="lst:sample-16"><a href="#lst:sample-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;role&quot;</span><span class="fu">:</span> <span class="st">&quot;assistant&quot;</span><span class="fu">,</span></span>
-<span id="lst:sample-17"><a href="#lst:sample-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="st">&quot;{ detected: true, .......... }&quot;</span></span>
-<span id="lst:sample-18"><a href="#lst:sample-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="lst:sample-19"><a href="#lst:sample-19" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="lst:sample-20"><a href="#lst:sample-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="lst:sample-5"><a href="#lst:sample-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="st">&quot;You are an expert in UML use case</span></span>
+<span id="lst:sample-6"><a href="#lst:sample-6" aria-hidden="true" tabindex="-1"></a><span class="st">        diagram analysis ...&quot;</span></span>
+<span id="lst:sample-7"><a href="#lst:sample-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="lst:sample-8"><a href="#lst:sample-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="lst:sample-9"><a href="#lst:sample-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;role&quot;</span><span class="fu">:</span> <span class="st">&quot;user&quot;</span><span class="fu">,</span></span>
+<span id="lst:sample-10"><a href="#lst:sample-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="st">&quot;Analyze the following PlantUML use</span></span>
+<span id="lst:sample-11"><a href="#lst:sample-11" aria-hidden="true" tabindex="-1"></a><span class="st">        case model and detect antipatterns. ...</span></span>
+<span id="lst:sample-12"><a href="#lst:sample-12" aria-hidden="true" tabindex="-1"></a><span class="st">        @startuml</span></span>
+<span id="lst:sample-13"><a href="#lst:sample-13" aria-hidden="true" tabindex="-1"></a><span class="st">        ...</span></span>
+<span id="lst:sample-14"><a href="#lst:sample-14" aria-hidden="true" tabindex="-1"></a><span class="st">        @enduml&quot;</span></span>
+<span id="lst:sample-15"><a href="#lst:sample-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="lst:sample-16"><a href="#lst:sample-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="lst:sample-17"><a href="#lst:sample-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;role&quot;</span><span class="fu">:</span> <span class="st">&quot;assistant&quot;</span><span class="fu">,</span></span>
+<span id="lst:sample-18"><a href="#lst:sample-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="st">&quot;{ detected: true, ... }&quot;</span></span>
+<span id="lst:sample-19"><a href="#lst:sample-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="lst:sample-20"><a href="#lst:sample-20" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="lst:sample-21"><a href="#lst:sample-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </figure>
 
 ## Quality Review {#sec:review}

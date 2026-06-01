@@ -335,15 +335,17 @@ is illustrated in Listing~1; refactored versions carry a fixed negative label
   "detected": true,
   "antipatterns": [{
     "antipattern_name":
-      "Functional Decomposition: Using the include relationship",
+      "Functional Decomposition: Using the
+      include relationship",
     "instance_count": 1,
     "instances": [{
       "elements": [
         "Withdraw Cash (UC1)",
         "Validate Account (UC2)"
       ],
-      "explanation": "'Validate Account' (UC2) is included by
-        'Withdraw Cash' (UC1), has no direct actor association
+      "explanation": "'Validate Account' (UC2)
+        is included by 'Withdraw Cash' (UC1),
+        has no direct actor association
         ... making it a functional decomposition."
     }]
   }]
@@ -372,19 +374,20 @@ corresponding negative (refactored) sample is identical in structure but with
   "messages": [
     {
       "role": "system",
-      "content": "You are an expert in UML use case diagram analysis..."
+      "content": "You are an expert in UML use case
+        diagram analysis ..."
     },
     {
       "role": "user",
-      "content": "Analyze the following PlantUML use case model and
-                  detect if it contains any antipatterns. ......
-                  @startuml
-                  ......
-                  @enduml"
+      "content": "Analyze the following PlantUML use
+        case model and detect antipatterns. ...
+        @startuml
+        ...
+        @enduml"
     },
     {
       "role": "assistant",
-      "content": "{ detected: true, .......... }"
+      "content": "{ detected: true, ... }"
     }
   ]
 }
