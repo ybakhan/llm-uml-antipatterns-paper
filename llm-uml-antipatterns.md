@@ -522,7 +522,7 @@ results.
 The degraded performance on MAPSTEDI relative to the synthetic test set
 is consistent with the synthetic distribution shift discussed in
 Section [8](#sec:discussion){reference-type="ref"
-reference="sec:discussion"}: the training diagrams are smaller (median 8
+reference="sec:discussion"}. The training diagrams are smaller (median 8
 use cases), syntactically uniform, and contain at most one antipattern
 type per diagram, whereas MAPSTEDI is a practitioner-authored diagram
 with 16 use cases, shared-behaviour patterns, and multi-actor use cases
