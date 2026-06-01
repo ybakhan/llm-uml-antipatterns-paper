@@ -81,8 +81,8 @@ comparatively little automated support.  We present a complete pipeline for
 fine-tuning an LLM to detect the \emph{Functional Decomposition
 via} \texttt{<<include>>} \emph{relationship} antipattern in PlantUML use
 case diagrams.  The pipeline uses Claude Opus, a frontier LLM,
-to synthesize 194 labeled diagram pairs (each consisting of an antipattern
-version and its correctly refactored counterpart) across a diverse set of
+to synthesize 194 labeled diagram pairs, each consisting of an antipattern
+version and its correctly refactored counterpart, across a diverse set of
 application domains.  Qwen2.5-Coder-3B-Instruct, a compact LLM, is then
 fine-tuned on this dataset using Low-Rank Adaptation (LoRA), achieving
 91.0\% detection accuracy and an instance-level recall of 0.87 on a held-out, domain-stratified test set.  The paper details the full pipeline from synthetic data generation to fine-tuning and evaluation.
