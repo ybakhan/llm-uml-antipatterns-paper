@@ -485,12 +485,12 @@ administrative processes, comprising 16 use cases and 7 actors.
 
 <figure id="fig:mapstedi" data-latex-placement="h">
 <img src="figures/mapstedi.png" />
-<figcaption>MAPSTEDI subsystem UC diagram used as the real-world
+<figcaption>MAPSTEDI subsystem use case diagram used as the real-world
 evaluation input.</figcaption>
 </figure>
 
 Figure [4](#fig:mapstedi){reference-type="ref" reference="fig:mapstedi"}
-shows the UC diagram. The three ground-truth FD-include instances,
+shows the use case diagram. The three ground-truth FD-include instances,
 established by manual inspection against the antipattern definition,
 are: (1) *Integrate Query Results* $\to$ *Query Local Database*, where
 *Query Local Database* has no direct actor association and represents an
