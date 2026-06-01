@@ -1,8 +1,3 @@
-**Keywords:** UML, use case diagrams, antipattern detection, LLM,
-fine-tuning, synthetic data, PlantUML, LoRA.
-
-------------------------------------------------------------------------
-
 # Introduction {#sec:intro}
 
 Unified Modeling Language (UML) use case diagrams are a primary artifact

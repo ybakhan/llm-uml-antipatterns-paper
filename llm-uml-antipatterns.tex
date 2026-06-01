@@ -1,49 +1,21 @@
 % ============================================================
 %  LLM-Based Antipattern Detection in UML Use Case Models
-%  Conference paper — generic article template
+%  ACM sigconf — MODELS 2026 NIER submission
 % ============================================================
-\documentclass[12pt, a4paper]{article}
+\documentclass[sigconf,review,anonymous]{acmart}
 
 % ── Packages ──────────────────────────────────────────────────────────────────
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage[margin=2.5cm]{geometry}
 \usepackage{microtype}
-\usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{listings}
-\usepackage{caption}
 \usepackage{subcaption}
 \usepackage{amsmath}
 \usepackage{enumitem}
-\usepackage{parskip}
-\usepackage[numbers,square,sort&compress]{natbib}
 \usepackage{upquote}
 \usepackage{float}
-
-% Fix bibliography indentation: natbib calls \NAT@bibsetnum with the
-% thebibliography argument (empty "" from apalike.bbl), computing \labelwidth
-% from \@biblabel{} = "[]" — too narrow for actual number labels like [19].
-% Redefine \NAT@bibsetnum to always use \@biblabel{99} for correct alignment.
-% (Cannot patch \@bibsetup directly: natbib reassigns it via \let inside
-%  \AtBeginDocument{\NAT@set@cites}, which runs after any preamble override.)
-\makeatletter
-\renewcommand\NAT@bibsetnum[1]{%
-  \settowidth\labelwidth{\@biblabel{99}}%
-  \setlength{\leftmargin}{\labelwidth}\addtolength{\leftmargin}{\labelsep}%
-  \setlength{\itemsep}{\bibsep}\setlength{\parsep}{\z@}%
-  \ifNAT@openbib
-    \addtolength{\leftmargin}{\bibindent}%
-    \setlength{\itemindent}{-\bibindent}%
-    \setlength{\listparindent}{\itemindent}%
-    \setlength{\parsep}{0pt}%
-  \fi
-}
-\makeatother
 
 % ── Colours ───────────────────────────────────────────────────────────────────
 \definecolor{codeblue}{rgb}{0.13,0.29,0.53}
@@ -78,41 +50,28 @@
   keywordstyle=\color{codeblue}\bfseries,
 }
 
-% ── Header / footer ───────────────────────────────────────────────────────────
-\pagestyle{plain}
-
-% ── Metadata ──────────────────────────────────────────────────────────────────
-\hypersetup{
-  pdftitle={LLM-Based Antipattern Detection in UML Use Case Models},
-  pdfauthor={},
-  colorlinks=true,
-  linkcolor=codeblue,
-  citecolor=codeblue,
-  urlcolor=codeblue,
-}
-
 % ==============================================================================
 \begin{document}
 
 % ── Title block ───────────────────────────────────────────────────────────────
-\title{%
-  \textbf{LLM-Based Antipattern Detection in UML Use Case Models:\\[4pt]
+\title{LLM-Based Antipattern Detection in UML Use Case Models:\\
   A Synthetic Data Generation and Fine-Tuning Approach}
+
+\author{Yasser Khan}
+\affiliation{%
+  \institution{Florida Atlantic University}
+  \city{Florida}
+  \country{USA}
 }
-\author{%
-  Yasser Khan\\
-  \small Department of Electrical Engineering and Computer Science\\
-  \small Florida Atlantic University, Florida, USA\\
-  \small \texttt{khany2026@fau.edu}
-  \and
-  Mohamed El-Attar\\
-  \small College of Technological Innovation\\
-  \small Zayed University, Abu Dhabi, United Arab Emirates\\
-  \small \texttt{Mohamed.El-Attar@zu.ac.ae}
+\email{khany2026@fau.edu}
+
+\author{Mohamed El-Attar}
+\affiliation{%
+  \institution{Zayed University}
+  \city{Abu Dhabi}
+  \country{United Arab Emirates}
 }
-\date{}
-\maketitle
-\thispagestyle{plain}
+\email{Mohamed.El-Attar@zu.ac.ae}
 
 % ── Abstract ──────────────────────────────────────────────────────────────────
 \begin{abstract}
@@ -129,12 +88,9 @@ fine-tuned on this dataset using Low-Rank Adaptation (LoRA), achieving
 91.0\% detection accuracy and an instance-level recall of 0.87 on a held-out, domain-stratified test set.  The paper details the full pipeline from synthetic data generation to fine-tuning and evaluation.
 \end{abstract}
 
-\noindent\textbf{Keywords:} UML, use case diagrams, antipattern detection,
-LLM, fine-tuning, synthetic data, PlantUML, LoRA.
+\keywords{UML, use case diagrams, antipattern detection, LLM, fine-tuning, synthetic data, PlantUML, LoRA}
 
-\vspace{1em}
-\hrule
-\vspace{1em}
+\maketitle
 
 % ==============================================================================
 \section{Introduction}
@@ -263,7 +219,7 @@ training sample packaging, as illustrated in Figure~\ref{fig:pipeline}.
 
 \begin{figure}[h]
 \centering
-\fbox{\parbox{0.88\textwidth}{\centering\vspace{1em}
+\fbox{\parbox{0.88\columnwidth}{\centering\vspace{1em}
 Antipattern configuration + Domain configuration\\
 $\downarrow$\\
 \textbf{Diagram generation} (Claude Opus API)\\
@@ -302,13 +258,13 @@ Figure~\ref{fig:domain8} shows a Flight Booking System example with two instance
 
 \begin{figure}[h]
   \centering
-  \begin{subfigure}[t]{0.56\textwidth}
+  \begin{subfigure}[t]{0.56\columnwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/domain8_antipattern}
     \caption{Antipattern: two FD-include instance groups.}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.40\textwidth}
+  \begin{subfigure}[t]{0.40\columnwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/domain8_refactored}
     \caption{Refactored: all four FD-include instances removed.}
@@ -761,8 +717,7 @@ The dataset, generation scripts, fine-tuning notebook, and evaluation results ar
 publicly available~\cite{khan2026repo}.
 
 % ==============================================================================
-\bibliographystyle{apalike}
-\setlength{\bibsep}{4pt}
+\bibliographystyle{ACM-Reference-Format}
 \bibliography{references}
 
 \end{document}
