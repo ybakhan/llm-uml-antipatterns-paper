@@ -95,8 +95,8 @@ LLMs have demonstrated strong capabilities in generating structured text
 conforming to domain-specific syntaxes, including source code,
 configuration files, and markup languages. PlantUML is a text-based
 diagram description language; its grammar is sufficiently regular that
-frontier models can produce syntactically valid diagrams with minimal
-additional scaffolding. This has been demonstrated in security modeling
+frontier models can produce syntactically valid diagrams with little
+additional guidance. This has been demonstrated in security modeling
 contexts: ChatGPT-5 has been shown to generate misuse case diagrams
 directly in PlantUML from textual security requirements (Alzarooni et
 al. 2026), and ChatGPT has been evaluated for generating STRIDE data
