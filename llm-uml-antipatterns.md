@@ -37,11 +37,11 @@ used to fine-tune Qwen2.5-Coder-3B-Instruct, a compact open-source LLM
 suitable for deployment in resource-constrained settings.
 
 This paper presents a prompt-engineering framework that instructs an LLM
-to produce syntactically valid, structurally diverse, and correctly
-labeled antipattern/refactored PlantUML diagram pairs, together with a
-structured dataset of 388 annotated training samples spanning 194
-distinct application domains with 1--5 antipattern instances per
-diagram. Building on this data, we fine-tune a 3B-parameter LLM that
+to generate syntactically valid, structurally diverse, and correctly
+labeled pairs of antipattern and refactored PlantUML diagrams. Using
+this framework, we produced a dataset of 388 annotated samples spanning
+194 application domains, each diagram containing 1--5 antipattern
+instances. Building on this data, we fine-tune a 3B-parameter LLM that
 achieves 91.0% detection accuracy on held-out test samples.
 
 The remainder of this paper is structured as follows.
