@@ -400,13 +400,14 @@ correctly predicts contributes one TP, each missed instance contributes
 one FN, and each predicted instance with no match in the expected list
 contributes one FP. For example, if a positive sample expects two
 instances and the model predicts two but only one matches, the result is
-1 TP, 1 FP, and 1 FN. Matching checks that `elements` exactly matches
-the expected list and that the `explanation` is semantically correct;
-all results were manually verified to resolve ambiguous cases.
-Precision, recall, F$_1$, instance classification accuracy, and Matthews
-Correlation Coefficient (MCC) are derived from these counts.
-Table [4](#tab:metrics){reference-type="ref" reference="tab:metrics"}
-reports the results over 126 verified classification outcomes.
+1 TP, 1 FP, and 1 FN. A predicted instance is considered correct only
+when its `elements` list exactly matches the expected list and its
+`explanation` is semantically correct. All results were manually
+verified to resolve ambiguous cases. Precision, recall, F$_1$, instance
+classification accuracy, and Matthews Correlation Coefficient (MCC) are
+derived from these counts. Table [4](#tab:metrics){reference-type="ref"
+reference="tab:metrics"} reports the results over 126 verified
+classification outcomes.
 
 :::: minipage
 ::: {#tab:metrics}
