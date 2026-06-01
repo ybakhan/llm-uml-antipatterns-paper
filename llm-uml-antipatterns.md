@@ -377,7 +377,8 @@ Figure [3](#fig:loss){reference-type="ref" reference="fig:loss"}.
 <figure id="fig:loss" data-latex-placement="h">
 <img src="figures/finetune_loss_curve_cropped.png"
 style="width:85.0%" />
-<figcaption>Training loss over 6 epochs.</figcaption>
+<figcaption>Training loss during LoRA fine-tuning on the generated
+dataset.</figcaption>
 </figure>
 
 # Evaluation {#sec:evaluation}
