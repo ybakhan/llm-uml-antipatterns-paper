@@ -383,13 +383,13 @@ dataset.</figcaption>
 
 # Evaluation {#sec:evaluation}
 
-Test samples are evaluated at two levels: detection and instance.
-Detection accuracy is the fraction of diagrams for which the model
-correctly predicts the `detected` field of the detection label; for
-positive predictions, the antipattern name is also verified. The model
-correctly predicted the presence or absence of an antipattern in 71 of
-78 test diagrams, yielding a detection accuracy of 91.0%, with the
-correct antipattern name predicted in all positive cases.
+Test samples are evaluated for detection accuracy and instance
+classification. Detection accuracy is the fraction of diagrams for which
+the model correctly predicts the `detected` field of the detection
+label; for positive predictions, the antipattern name is also verified.
+The model correctly predicted the presence or absence of an antipattern
+in 71 of 78 test diagrams, yielding a detection accuracy of 91.0%, with
+the correct antipattern name predicted in all positive cases.
 
 Instance classification compares the predicted instance list against the
 detection label and assigns TP, TN, FP, and FN counts as follows. A
