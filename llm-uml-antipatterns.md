@@ -603,9 +603,8 @@ apply the prescribed structural repairs. While this fully automates the
 detect-and-refactor loop for a subset of the catalogued antipatterns,
 the approach still relies on expert-authored formal rules and requires
 diagrams to be serialised in XMI rather than plain-text sources. Our
-approach is complementary: by training an LLM on labeled diagram pairs,
-we show that the detection task can be learned from examples alone,
-without hand-crafted rules.
+approach is complementary, showing that the detection task can be
+learned from labeled diagram pairs alone, without hand-crafted rules.
 
 Early assessments of ChatGPT's ability to generate UML class diagrams
 found syntactic and semantic limitations in models of that era (Cámara
