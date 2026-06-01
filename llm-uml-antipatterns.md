@@ -188,7 +188,7 @@ use case, `<<include>>` arrow, or `<<extend>>` arrow. Diagram size is
 expressed as a total element count, with the target for each domain
 drawn from the size tier range. The two tiers in
 Table [1](#tab:size){reference-type="ref" reference="tab:size"} are
-deliberately non-contiguous: small diagrams contain at most one instance
+deliberately non-contiguous. Small diagrams contain at most one instance
 group, while medium diagrams are large enough to support up to three.
 The gap between the tiers ensures structural distinction is preserved
 regardless of minor count deviations, since Claude may add or omit a few
