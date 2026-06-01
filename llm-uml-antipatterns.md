@@ -477,12 +477,8 @@ a base use case.
 
 To assess the model's ability to generalise beyond synthetically
 generated diagrams, we apply it to a subsystem of MAPSTEDI, a
-distributed biodiversity database system used to merge specimen
-collections held by the University of Colorado, the Denver Museum of
-Nature and Science, and the Denver Botanic Gardens (MAPSTEDI Project
-2006). The UC model was originally prepared by graduate students in the
-Ecology and Evolutionary Biology Department at the University of
-Colorado and has been used as a benchmark in prior antipattern detection
+distributed biodiversity database system (MAPSTEDI Project 2006) that
+has been used as a benchmark in prior antipattern detection
 research (El-Attar and Miller 2006, 2010). The subsystem modelled here
 covers database access, database integration, database editing, and
 administrative processes, comprising 16 use cases and 7 actors.
