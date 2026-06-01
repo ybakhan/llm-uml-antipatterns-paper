@@ -97,11 +97,12 @@ configuration files, and markup languages. PlantUML is a text-based
 diagram description language; its grammar is sufficiently regular that
 frontier models can produce syntactically valid diagrams with little
 additional guidance. This has been demonstrated in security modeling
-contexts: ChatGPT-5 has been shown to generate misuse case diagrams
-directly in PlantUML from textual security requirements (Alzarooni et
-al. 2026), and ChatGPT has been evaluated for generating STRIDE data
-flow diagrams, with findings covering syntactic correctness, semantic
-accuracy, and trust-boundary placement (Alsayegh and El-Attar 2026).
+contexts, where ChatGPT-5 has been shown to generate misuse case
+diagrams directly in PlantUML from textual security
+requirements (Alzarooni et al. 2026), and ChatGPT has been evaluated for
+generating STRIDE data flow diagrams, with findings covering syntactic
+correctness, semantic accuracy, and trust-boundary placement (Alsayegh
+and El-Attar 2026).
 
 Adapting a pre-trained LLM to a specialised task such as antipattern
 detection, without retraining all weights, is achieved through
