@@ -558,8 +558,8 @@ analysis suggests performance may degrade further as instance count
 grows. The model was trained and evaluated exclusively on
 PlantUML-formatted diagrams, so its applicability to other use case
 diagram notations or modeling tools remains untested. Finally, 78 test
-samples across 39 domains yield somewhat unstable metric estimates, and
-a larger held-out set would provide more reliable performance bounds.
+samples across 39 domains limit the precision of metric estimates, and a
+larger held-out set would provide more reliable performance bounds.
 
 The most immediate extension is broadening the dataset to cover multiple
 antipattern types simultaneously, working towards a unified model
