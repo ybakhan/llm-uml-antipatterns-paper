@@ -361,17 +361,17 @@ We apply PEFT to Qwen2.5-Coder-3B-Instruct ([Hui et al.]{.nocase} 2024),
 a 3B-parameter LLM from the Qwen2.5-Coder series. Its pretraining corpus
 includes large quantities of code and structured text, making it
 well-suited to PlantUML syntax and structured output formatting.
-Low-Rank Adaptation (LoRA) (Hu et al. 2022) adapters are applied to all
-attention and feed-forward projection matrices with rank $r = 8$ and
-scaling factor $\alpha = 16$, training 0.48% of total parameters.
-Samples are formatted using the Qwen2.5 chat template with system, user,
-and assistant turns, with a maximum sequence length of 2048 tokens. The
-dataset is split into training and test sets using a domain-stratified
-80/20 partition, where entire domains (both antipattern and refactored
-samples) are assigned to either split, ensuring no domain appears in
-both. This yields 155 training domains (310 samples) and 39 test domains
-(78 samples). The model is trained for 6 epochs; training loss converged
-smoothly from above 1.0 to a final value of 0.18, as shown in
+LoRA (Hu et al. 2022) adapters are applied to all attention and
+feed-forward projection matrices with rank $r = 8$ and scaling factor
+$\alpha = 16$, training 0.48% of total parameters. Samples are formatted
+using the Qwen2.5 chat template with system, user, and assistant turns,
+with a maximum sequence length of 2048 tokens. The dataset is split into
+training and test sets using a domain-stratified 80/20 partition, where
+entire domains (both antipattern and refactored samples) are assigned to
+either split, ensuring no domain appears in both. This yields 155
+training domains (310 samples) and 39 test domains (78 samples). The
+model is trained for 6 epochs; training loss converged smoothly from
+above 1.0 to a final value of 0.18, as shown in
 Figure [3](#fig:loss){reference-type="ref" reference="fig:loss"}.
 
 <figure id="fig:loss" data-latex-placement="h">
